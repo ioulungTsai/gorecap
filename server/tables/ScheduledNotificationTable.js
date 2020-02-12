@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ScheduledNotifacationSchema = new mongoose.Schema({
+const ScheduledNotificationSchema = new mongoose.Schema({
   cardId: {
     type: mongoose.ObjectId,
     required: true,
@@ -21,6 +21,6 @@ const ScheduledNotifacationSchema = new mongoose.Schema({
   }
 });
 
-const ScheduledNotifacationTable = mongoose.model('ScheduledNotifacation', ScheduledNotifacationSchema);
+const ScheduledNotificationTable = mongoose.model('ScheduledNotifacation', ScheduledNotificationSchema);
 
-module.exports = ScheduledNotifacationTable
+module.exports = ScheduledNotificationTable

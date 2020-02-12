@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
-const api = require('./api')
+const cardAPI = require('./api/card.api')
+const transactionAPI = require('./api/transaction.api')
+const scheduledNotificationAPI = require('./api/scheduledNotification.api')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/test', {
@@ -15,8 +17,25 @@ db.once('open', function () {
 
 app.use(bodyParser.json())
 
-app.use(api)
+app.use(cardAPI)
+app.use(transactionAPI)
+app.use(scheduledNotificationAPI)
+
+// app.get('/failed', (req, res, next) => {
+//   Promise.reject()
+//     .then(() => {
+//       res.json()
+//     })
+//     .catch(next);
+// })
+
+app.use((req, res, next) => {
+  res.status(200).send('ok!')
+})
+
+app.use((err, req, res, next) => {
+  console.log(err)
+  res.status(500).send(err)
+})
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
-
-
