@@ -9,7 +9,7 @@ mongoose.connect('mongodb://localhost/test', {
   useNewUrlParser: true
 });
 const db = mongoose.connection;
-const port = 3000
+const port = 3001;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
   console.log("Listening~");
@@ -17,25 +17,29 @@ db.once('open', function () {
 
 app.use(bodyParser.json())
 
+app.get('/get/test', (req, res, next) => {
+  res.json({
+    msg: 'test ok'
+  })
+})
+
+app.post('/post/test', (req, res) => {
+  console.log(req.body);
+  res.status(200);
+})
+
 app.use(cardAPI)
 app.use(transactionAPI)
 app.use(scheduledNotificationAPI)
 
-// app.get('/failed', (req, res, next) => {
-//   Promise.reject()
-//     .then(() => {
-//       res.json()
-//     })
-//     .catch(next);
+
+// app.use((req, res, next) => {
+//   res.status(200).send('ok!')
 // })
 
-app.use((req, res, next) => {
-  res.status(200).send('ok!')
-})
-
-app.use((err, req, res, next) => {
-  console.log(err)
-  res.status(500).send(err)
-})
+// app.use((err, req, res, next) => {
+//   console.log(err)
+//   res.status(500).send(err)
+// })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
