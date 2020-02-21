@@ -17,15 +17,18 @@ db.once('open', function () {
 
 app.use(bodyParser.json())
 
-app.get('/get/test', (req, res, next) => {
+app.get('/test', (req, res, next) => {
   res.json({
     msg: 'test ok'
   })
 })
 
-app.post('/post/test', (req, res) => {
+app.post('/test', (req, res) => {
   console.log(req.body);
   res.status(200);
+  res.json({
+    msg: 'test ok'
+  });
 })
 
 app.use(cardAPI)
