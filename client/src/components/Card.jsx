@@ -18,7 +18,10 @@ export default () => {
       question,
       answer
     };
-
+    if(data.answer === '' || data.question === '') {
+      return
+    }
+    setIsLoading(true)
     fetch('/test', {
       method: 'POST',
       headers: {
@@ -26,9 +29,16 @@ export default () => {
       },
       body: JSON.stringify(data),
     })
-    .then(response => response.json())
+    .then(response => {
+      return response.json()
+    })
     .then(result => {
       console.log(result)
+    })
+    .then( () => {
+      setIsLoading(false)
+      setQuestion('')
+      setAnswer('')
     })
     .catch((error) => {
       console.error('Error:', error);
@@ -37,7 +47,7 @@ export default () => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 1000);
   }, [])
   return (
     <Paper elevation={2}>
@@ -78,7 +88,7 @@ export default () => {
           />
           <Button
             size="small"
-            variant="outlined"
+            variant="contained"
             color="primary"
             onClick={submit}
             disabled={isLoading}
