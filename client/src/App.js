@@ -32,7 +32,7 @@ function App() {
   })
 
   return (
-    <Container maxWidth='sm'>
+    <Container maxWidth='sm' style={{paddingTop: '100px'}}>
       <Card></Card>
     </Container>
   );

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import {
+  Grid,
   Paper,
-  // Grid,
-  TextField,
   Button,
+  TextField,
   CircularProgress,
+  Typography
 } from '@material-ui/core';
 export default () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,10 +18,9 @@ export default () => {
       question,
       answer
     };
-    // console.log(data);
+
     fetch('/test', {
-      method: 'POST', // or 'PUT'
-      // mode: 'no cors',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -40,49 +40,55 @@ export default () => {
     }, 3000);
   }, [])
   return (
-    <Paper elevation={1} style={{padding: '16px', margin: '8px'}}>
-    {/* //   <Grid container> */}
-    {/* //     <Grid item xs={12} align="center"> */}
-          <form noValidate>
-            <div>
-              <TextField
-                id="outlined-question"
-                label={`Question`}
-                type="text"
-                variant="outlined"
-                style={{ margin: 8 }}
-                disabled={isLoading}
-                value={question}
-                onChange={(event) => setQuestion(event.target.value)}
-                InputLabelProps={{ shrink: true }}
-              />
-            </div>
-            <div>
-              <TextField
-                id="outlined-answer"
-                label={`Answer`}
-                type="text"
-                variant="outlined"
-                style={{ margin: 8 }}
-                disabled={isLoading}
-                value={answer}
-                onChange={(event) => setAnswer(event.target.value)}
-                InputLabelProps={{ shrink: true }}
-              />
-            </div>
-            <Button
-              size="small"
-              variant="outlined"
-              color="primary"
-              onClick={submit}
-              disabled={isLoading}
-            >
-              {isLoading && <CircularProgress size={15}/>}
-              {!isLoading && 'Submit'}
-            </Button>
-          </form>
-    {/* //     </Grid> */}
-    {/* //   </Grid> */}
+    <Paper elevation={2}>
+      <form noValidate style={{padding: '16px', margin: '8px'}}>
+        <Grid container
+              direction="column"
+              justify="center"
+              alignItems="center"
+        >
+          <Typography component="h1" variant="h5" color="primary">
+            Let's Create a Card
+          </Typography>
+          <TextField
+            id="outlined-question"
+            label={`Question`}
+            type="text"
+            variant="outlined"
+            style={{ margin: 8 }}
+            disabled={isLoading}
+            value={question}
+            onChange={(event) => setQuestion(event.target.value)}
+            InputLabelProps={{ shrink: true }}
+            fullWidth
+          />
+          <TextField
+            id="outlined-answer"
+            label={`Answer`}
+            type="text"
+            variant="outlined"
+            style={{ margin: 8 }}
+            disabled={isLoading}
+            value={answer}
+            onChange={(event) => setAnswer(event.target.value)}
+            InputLabelProps={{ shrink: true }}
+            fullWidth
+            multiline
+            rows="10"
+          />
+          <Button
+            size="small"
+            variant="outlined"
+            color="primary"
+            onClick={submit}
+            disabled={isLoading}
+            fullWidth
+          >
+            {isLoading && <CircularProgress size={15}/>}
+            {!isLoading && 'Submit'}
+          </Button>
+        </Grid>
+      </form>
     </Paper>
   )
 };
