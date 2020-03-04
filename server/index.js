@@ -23,13 +23,13 @@ app.get('/test', (req, res, next) => {
   })
 })
 
-app.post('/test', (req, res) => {
-  console.log(req.body);
-  res.status(200);
-  res.json({
-    msg: 'test ok from post'
-  });
-})
+// app.post('/test', (req, res) => {
+//   console.log(req.body);
+//   res.status(200);
+//   res.json({
+//     msg: 'test ok from post'
+//   });
+// })
 
 app.use(cardAPI)
 app.use(transactionAPI)

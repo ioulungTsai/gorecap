@@ -18,7 +18,10 @@ export default () => {
       question,
       answer
     };
-    if(data.answer === '' || data.question === '') {
+    if(
+      data.answer.replace(/ /g, '') === '' ||
+      data.question.replace(/ /g, '') === ''
+    ) {
       return
     }
     setIsLoading(true)
@@ -36,12 +39,14 @@ export default () => {
       console.log(result)
     })
     .then( () => {
-      setIsLoading(false)
       setQuestion('')
       setAnswer('')
     })
     .catch((error) => {
       console.error('Error:', error);
+    })
+    .finally(()=> {
+      setIsLoading(false)
     })
   };
   useEffect(() => {
