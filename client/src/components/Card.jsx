@@ -11,7 +11,23 @@ export default () => {
   const [isLoading, setIsLoading] = useState(true);
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
+  const [name, setName] = useState('')
 
+  useEffect(()=>{
+    setTimeout(()=>{
+      setIsLoading(false)
+    }, 5000)
+  }, []);
+
+  useEffect(() => {
+    if(isLoading === false) {
+      setName(', Brandon')
+    }
+  }, [isLoading]);
+
+  useEffect(() => {
+    console.log(question, answer)
+  }, [question, answer])
 
   const submit = async () => {
     const data = {
@@ -49,11 +65,7 @@ export default () => {
       setIsLoading(false)
     })
   };
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-  }, [])
+
   return (
     <Paper elevation={2}>
       <form noValidate style={{padding: '16px', margin: '8px'}}>
@@ -63,7 +75,7 @@ export default () => {
               alignItems="center"
         >
           <Typography component="h1" variant="h5" color="primary">
-            Let's Create a Card
+            Let's Create a Card {name}
           </Typography>
           <TextField
             id="outlined-question"
